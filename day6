@@ -1,0 +1,17 @@
+# Input
+n = int(input())
+arr = list(map(int, input().split()))
+
+# Edge case
+if n == 0:
+    print()
+else:
+    i = 0  # points to last unique element
+
+    for j in range(1, n):
+        if arr[j] != arr[i]:
+            i += 1
+            arr[i] = arr[j]
+
+    # Print unique elements
+    print(*arr[:i+1])
