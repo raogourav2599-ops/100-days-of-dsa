@@ -1,0 +1,5 @@
+# Input
+s = input().strip()
+
+# Reverse (mirror)
+print(s[::-1])
