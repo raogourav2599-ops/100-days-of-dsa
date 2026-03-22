@@ -1,0 +1,16 @@
+# Input
+m, n = map(int, input().split())
+
+matrix = []
+for i in range(m):
+    row = list(map(int, input().split()))
+    matrix.append(row)
+
+# Sum of primary diagonal
+sum_diag = 0
+
+for i in range(min(m, n)):
+    sum_diag += matrix[i][i]
+
+# Output
+print(sum_diag)
