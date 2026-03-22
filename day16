@@ -1,0 +1,16 @@
+# Input
+n = int(input())
+arr = list(map(int, input().split()))
+
+# Frequency count
+freq = {}
+
+for num in arr:
+    if num in freq:
+        freq[num] += 1
+    else:
+        freq[num] = 1
+
+# Output
+for key in sorted(freq):
+    print(f"{key}:{freq[key]}", end=" ")
