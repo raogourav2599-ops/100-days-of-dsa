@@ -1,0 +1,31 @@
+# Input
+p = int(input())
+list1 = list(map(int, input().split()))
+
+q = int(input())
+list2 = list(map(int, input().split()))
+
+# Merge process
+i = 0
+j = 0
+result = []
+
+while i < p and j < q:
+    if list1[i] < list2[j]:
+        result.append(list1[i])
+        i += 1
+    else:
+        result.append(list2[j])
+        j += 1
+
+# Remaining elements
+while i < p:
+    result.append(list1[i])
+    i += 1
+
+while j < q:
+    result.append(list2[j])
+    j += 1
+
+# Output
+print(*result)
