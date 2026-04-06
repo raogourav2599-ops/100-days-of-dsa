@@ -1,0 +1,19 @@
+from collections import deque
+
+# Input
+n = int(input())
+arr = list(map(int, input().split()))
+
+queue = deque(arr)
+stack = []
+
+# Step 1: Push queue elements into stack
+while queue:
+    stack.append(queue.popleft())
+
+# Step 2: Pop from stack back to queue
+while stack:
+    queue.append(stack.pop())
+
+# Output
+print(*queue)
