@@ -1,0 +1,41 @@
+class Node:
+    def __init__(self, val):
+        self.data = val
+        self.left = None
+        self.right = None
+
+def insert(root, key):
+    if root is None:
+        return Node(key)
+
+    if key < root.data:
+        root.left = insert(root.left, key)
+    else:
+        root.right = insert(root.right, key)
+
+    return root
+
+def find_lca(root, n1, n2):
+    while root:
+        # both smaller → go left
+        if n1 < root.data and n2 < root.data:
+            root = root.left
+        
+        # both greater → go right
+        elif n1 > root.data and n2 > root.data:
+            root = root.right
+        
+        else:
+            return root.data  # split point = LCA
+
+# Input
+n = int(input())
+arr = list(map(int, input().split()))
+n1, n2 = map(int, input().split())
+
+root = None
+for x in arr:
+    root = insert(root, x)
+
+# Output
+print(find_lca(root, n1, n2))
