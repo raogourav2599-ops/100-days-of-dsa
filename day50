@@ -1,0 +1,42 @@
+class Node:
+    def __init__(self, val):
+        self.data = val
+        self.left = None
+        self.right = None
+
+def insert(root, key):
+    if root is None:
+        return Node(key)
+
+    if key < root.data:
+        root.left = insert(root.left, key)
+    else:
+        root.right = insert(root.right, key)
+
+    return root
+
+def search(root, key):
+    if root is None:
+        return False
+
+    if root.data == key:
+        return True
+    elif key < root.data:
+        return search(root.left, key)
+    else:
+        return search(root.right, key)
+
+# Input
+n = int(input())
+arr = list(map(int, input().split()))
+key = int(input())
+
+root = None
+for x in arr:
+    root = insert(root, x)
+
+# Output
+if search(root, key):
+    print("Found")
+else:
+    print("Not Found")
