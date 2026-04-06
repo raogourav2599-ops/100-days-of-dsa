@@ -1,0 +1,54 @@
+heap = []
+
+def heapify_up(i):
+    while i > 0:
+        parent = (i - 1) // 2
+        if heap[parent] > heap[i]:
+            heap[parent], heap[i] = heap[i], heap[parent]
+            i = parent
+        else:
+            break
+
+def heapify_down(i):
+    n = len(heap)
+    while True:
+        smallest = i
+        left = 2*i + 1
+        right = 2*i + 2
+
+        if left < n and heap[left] < heap[smallest]:
+            smallest = left
+        if right < n and heap[right] < heap[smallest]:
+            smallest = right
+
+        if smallest != i:
+            heap[i], heap[smallest] = heap[smallest], heap[i]
+            i = smallest
+        else:
+            break
+
+n = int(input())
+
+for _ in range(n):
+    op = input().split()
+
+    if op[0] == "insert":
+        x = int(op[1])
+        heap.append(x)
+        heapify_up(len(heap) - 1)
+
+    elif op[0] == "extractMin":
+        if len(heap) == 0:
+            print(-1)
+        else:
+            print(heap[0])
+            heap[0] = heap[-1]
+            heap.pop()
+            if len(heap) > 0:
+                heapify_down(0)
+
+    elif op[0] == "peek":
+        if len(heap) == 0:
+            print(-1)
+        else:
+            print(heap[0])
