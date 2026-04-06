@@ -1,0 +1,88 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+// Node structure
+struct Node {
+    int data;
+    struct Node* next;
+};
+
+// Insert at end
+struct Node* insert(struct Node* head, int data) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = data;
+    newNode->next = NULL;
+
+    if (head == NULL) return newNode;
+
+    struct Node* temp = head;
+    while (temp->next != NULL)
+        temp = temp->next;
+
+    temp->next = newNode;
+    return head;
+}
+
+// Get length
+int getLength(struct Node* head) {
+    int len = 0;
+    while (head != NULL) {
+        len++;
+        head = head->next;
+    }
+    return len;
+}
+
+// Find intersection
+struct Node* findIntersection(struct Node* head1, struct Node* head2) {
+    int len1 = getLength(head1);
+    int len2 = getLength(head2);
+
+    int diff = abs(len1 - len2);
+
+    // Move pointer of longer list
+    if (len1 > len2) {
+        for (int i = 0; i < diff; i++)
+            head1 = head1->next;
+    } else {
+        for (int i = 0; i < diff; i++)
+            head2 = head2->next;
+    }
+
+    // Traverse together
+    while (head1 != NULL && head2 != NULL) {
+        if (head1 == head2)  // address compare
+            return head1;
+
+        head1 = head1->next;
+        head2 = head2->next;
+    }
+
+    return NULL;
+}
+
+int main() {
+    int n, m, x;
+    struct Node *head1 = NULL, *head2 = NULL;
+
+    scanf("%d", &n);
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &x);
+        head1 = insert(head1, x);
+    }
+
+    scanf("%d", &m);
+    for (int i = 0; i < m; i++) {
+        scanf("%d", &x);
+        head2 = insert(head2, x);
+    }
+
+    struct Node* intersection = findIntersection(head1, head2);
+
+    if (intersection)
+        printf("%d", intersection->data);
+    else
+        printf("No Intersection");
+
+    return 0;
+}
