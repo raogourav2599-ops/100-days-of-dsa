@@ -1,0 +1,69 @@
+#include <stdio.h>
+
+#define SIZE 100
+
+int table[SIZE];
+
+// Initialize table
+void init() {
+    for (int i = 0; i < SIZE; i++)
+        table[i] = -1;
+}
+
+// Insert using quadratic probing
+void insert(int key, int m) {
+    int index = key % m;
+
+    for (int i = 0; i < m; i++) {
+        int newIndex = (index + i*i) % m;
+
+        if (table[newIndex] == -1) {
+            table[newIndex] = key;
+            return;
+        }
+    }
+}
+
+// Search using quadratic probing
+void search(int key, int m) {
+    int index = key % m;
+
+    for (int i = 0; i < m; i++) {
+        int newIndex = (index + i*i) % m;
+
+        if (table[newIndex] == key) {
+            printf("FOUND\n");
+            return;
+        }
+
+        if (table[newIndex] == -1) {
+            printf("NOT FOUND\n");
+            return;
+        }
+    }
+
+    printf("NOT FOUND\n");
+}
+
+int main() {
+    int m, q;
+    scanf("%d", &m);
+    scanf("%d", &q);
+
+    init();
+
+    while (q--) {
+        char op[10];
+        int key;
+
+        scanf("%s %d", op, &key);
+
+        if (op[0] == 'I') {
+            insert(key, m);
+        } else if (op[0] == 'S') {
+            search(key, m);
+        }
+    }
+
+    return 0;
+}
